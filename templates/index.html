@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Home</title>
+<style type="text/css">
+    
+    .merienda {
+        font-family: 'Merienda', cursive;
+        font-size: larger;
+    }
+    .mydiv {
+        background: url(/static/images/boy.jpg);
+        padding: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div>
+    <div class="mydiv">
+        <h1><center class="merienda text-warning">Welcome</center></h1>
+        <p class="merienda text-warning">Welcome to the Abeer Rao's Blog! Here we'll be talking about everything computer science. Basics,
+            frameworkds, machine learning, other data science stuff, any new tech or findings, and pretty much
+            anything computer science related.</p>
+        <p class="merienda text-warning">Go visit my <a href="https://www.youtube.com/channel/UCs1W1d7jC6WeEPSHeY547qA" class="text-danger">YouTube</a> to check out
+            more cool stuff beyond just blogs.</p>
+        <p class="merienda text-warning">
+            <a class="btn btn-primary" href="/posts" role="button">Go To Posts &raquo;</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

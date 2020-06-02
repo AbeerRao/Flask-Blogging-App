@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Comments</title>
+<style type="text/css">
+    
+    .merienda {
+        font-family: 'Merienda', cursive;
+    }
+    .mydiv {
+        background: url(/static/images/boy.jpg);
+        padding: 20px;
+        margin-bottom: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<br>
+<div>
+    <h1 style="display:inline">All Comments</h1>
+    <a style="display:inline" class="btn btn-outline-info float-right" href="/comment/new/{{post.id}}">+ New Comment</a>
+</div>
+<hr>
+{% for comment in comments %}
+<div class="mydiv">
+    {% if comment.author %}
+    <h2 class="text-white"> Written by {{ comment.author }} on {{ comment.time.strftime('%Y %m %d') }}</h2>
+    {% else %}
+    <h2 class="text-white"> Written by Unknown on {{ comment.time }}</h2>
+    {% endif %}
+    <br>
+    <br>
+    <h4 style="white-space:pre-wrap" class="text-white">{{ comment.content }}</h4>
+    <br>
+</div>
+{% endfor%}
+{% endblock %}

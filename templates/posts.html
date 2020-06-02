@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Posts</title>
+<style type="text/css">
+    
+    .merienda {
+        font-family: 'Merienda', cursive;
+    }
+    .mydiv {
+        background: url(/static/images/boy.jpg);
+        padding: 20px;
+        margin-bottom: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<br>
+<div>
+    <h1 style="display:inline">All Posts</h1>
+    <a style="display:inline" class="btn btn-outline-info float-right" href="/posts/new">+ New Post</a>
+</div>
+<hr>
+{% for post in posts %}
+<div class="mydiv">
+    <h2 class="text-white">{{ post.title }}</h2>
+    {% if post.author %}
+    <small class="text-white"> Written by {{ post.author }} on {{ post.date_posted.strftime('%Y %m %d') }}</small>
+    {% else %}
+    <small class="text-white"> Written by Unknown on {{ post.date_posted }}</small>
+    {% endif %}
+    <br>
+    <br>
+    <p style="white-space:pre-wrap" class="text-white">{{ post.content }}</p>
+    <br>
+</div>
+{% if current_user.username == post.author %}
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+    Delete Post
+</button>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Post?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure that you want to delete your post? This change will be permanent and will not be reversed.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                        <form action="/posts/delete/{{ post.id }}" method="POST">
+                            <input type="submit" value="Delete" class="btn btn-danger">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+<a class="btn btn-primary" href='/posts/edit/{{post.id}}'>Edit</a>
+{% endif %}
+<a class="btn btn-success" href='/comment/new/{{post.id}}'>Add A Comment</a>
+<a class="btn btn-info" href='/comments/{{post.id}}'>See All Comments</a>
+<br>
+<hr>
+<br>
+{% endfor%}
+{% endblock %}

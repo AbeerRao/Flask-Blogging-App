@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Account</title>
+<style type="text/css">
+    
+    .merienda {
+        font-family: 'Merienda', cursive;
+    }
+    .mydiv {
+        background: url(/static/images/boy.jpg);
+        padding: 20px;
+        margin-bottom: 10px;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="mydiv">
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{ imageFile }}">
+        <div class="media-body">
+            <h2 class="account-heading text-white">{{ current_user.username }}</h2>
+            <p class="text-white">{{ current_user.email }}</p>
+        </div>
+    </div>
+    <div>
+        <form method="POST" action="" , enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <h1 class="text-white">
+                    <center>Update Account Info</center>
+                </h1>
+                <div>
+                    <div class="form-group">
+                        {{ form.username.label(class="form-control-label text-white") }}
+
+                        {% if form.username.errors %}
+                        {{ form.username(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.username(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.email.label(class="form-control-label text-white") }}
+                        {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.email(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.picture.label(class="text-white") }}
+                    {{ form.picture(class="btn btn-primary") }}
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-info") }}
+                {% if form.picture.errors %}
+                {% for error in form.picture.errors %}
+                <span class="text-danger">{{ error }}</span><br>
+                {% endfor %}
+                {% endif %}
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">
+                    Delete Account
+                </button>
+        </form>
+                <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Account?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure that you want to delete your account? This change will be permanent and will not be reversed.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                        <form action="/delete/account/{{ current_user.id }}" method="POST">
+                            <input type="submit" value="Delete" class="btn btn-danger">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

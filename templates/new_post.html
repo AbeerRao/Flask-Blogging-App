@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>New Post</title> 
+<style type="text/css">
+    
+    .merienda {
+        font-family: 'Merienda', cursive;
+    }
+    .mydiv {
+        background: url(/static/images/boy.jpg);
+        padding: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<h1><center>New Post</center></h1>
+    <form action='/posts/new' method='POST'>
+        <div class="mydiv">
+            <label for="title" class="text-white">Title:</label>
+            <input class="form-control" type="text" name='title' id='title' placeholder="Enter Title" aria-label="Enter Title">
+            <br>
+            <label for="author" class="text-white">Author:</label>
+            <input class="form-control" type="text" name='author' id='author' placeholder="Enter Author" aria-label="Enter Author" value="{{ current_user.username }}">
+            <br>
+            <label for="content" class="text-white">Post:</label>
+            <textarea class="form-control" name='content' id="content" placeholder="Enter Content" aria-label="Enter Content" rows="3"></textarea>
+        </div>
+        <br>
+        <input type='submit' value='Post' class="btn btn-info">
+    </form>
+{% endblock %}

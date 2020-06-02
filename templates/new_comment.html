@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>New Comment</title> 
+<style type="text/css">
+    
+    .merienda {
+        font-family: 'Merienda', cursive;
+    }
+    .mydiv {
+        background: url(/static/images/boy.jpg);
+        padding: 20px;
+        margin-bottom: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<h1><center>New Comment</center></h1>
+    <form action='/comment/new/{{post.id}}' method='POST'>
+        <div class="mydiv">
+            <label for="author" class="text-light">Author:</label>
+            <input class="form-control" type="text" name='author' id='author' placeholder="Enter Author" aria-label="Enter Author" value="{{ current_user.username }}">
+            <br>
+            <label for="content" class="text-light">Post:</label>
+            <textarea class="form-control" name='content' id="content" placeholder="Enter Content" aria-label="Enter Content" rows="3"></textarea>
+            <br>
+            <label for="id" class="text-light">Post ID:</label>
+            <input class="form-control" type="text" name='id' id='id' placeholder="Post ID" aria-label="Post ID" value="{{ post.id }}">
+        </div>
+        <br>
+        <input type='submit' value='Post' class="btn btn-info">
+    </form>
+{% endblock %}
